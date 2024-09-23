@@ -1,0 +1,219 @@
+#: includes/class-alg-slugs-manager-core.php:155
+msgid "Invalid user."
+msgstr ""
+
+#: includes/class-alg-slugs-manager-core.php:167
+msgid "Invalid nonce."
+msgstr ""
+
+#: includes/class-alg-slugs-manager-core.php:179
+msgid "Rewrite rules flushed."
+msgstr ""
+
+#: includes/class-alg-slugs-manager-core.php:191
+#, php-format
+msgid "Removing old slugs from database finished! %s old slug(s) deleted."
+msgstr ""
+
+#: includes/class-alg-slugs-manager-core.php:204
+msgid "No slugs selected."
+msgstr ""
+
+#: includes/class-alg-slugs-manager.php:137
+msgid "Settings"
+msgstr ""
+
+#: includes/class-alg-slugs-manager.php:140
+msgid "Go Pro"
+msgstr ""
+
+#: includes/pro/class-alg-slugs-manager-crons.php:105
+msgid "Once Weekly"
+msgstr ""
+
+#: includes/pro/class-alg-slugs-manager-crons.php:109
+msgid "Once a Minute"
+msgstr ""
+
+#: includes/pro/class-alg-slugs-manager-pro.php:121
+#, php-format
+msgid "%s slugs regenerated."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:114
+#: includes/settings/class-alg-slugs-manager-settings.php:115
+#: includes/settings/class-alg-slugs-manager-settings.php:135
+msgid "Slugs Manager"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:163
+msgid "Old Slugs"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:164
+msgid "This tool removes old slugs (permalinks) from database."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:172
+msgid "Old Slug"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:173
+msgid "Post ID"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:174
+msgid "Post Title"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:175
+msgid "Post Type"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:176
+msgid "Current Slug"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:197
+#: includes/settings/class-alg-slugs-manager-settings.php:199
+#: includes/settings/class-alg-slugs-manager-settings.php:330
+msgid "Are you sure?"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:197
+msgid "Remove selected old slugs"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:199
+msgid "Remove all old slugs"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:201
+#: includes/settings/class-alg-slugs-manager-settings.php:215
+msgid "Refresh list"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:203
+#, php-format
+msgid "%s old slug(s) found."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:212
+msgid "No old slugs found in database."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:230
+msgid "Automatic Clean Ups"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:232
+#, php-format
+msgid "You will need %s plugin to enable automatic old slugs clean ups."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:234
+#: includes/settings/class-alg-slugs-manager-settings.php:316
+msgid "Slugs Manager Pro"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:237
+#, php-format
+msgid "%s is set to %s in your %s file - \"Scheduled Clean Ups\" won't work."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:245
+msgid "Disabled"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:246
+msgid "Every minute"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:247
+msgid "Hourly"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:248
+msgid "Twice daily"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:249
+msgid "Daily"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:250
+msgid "Weekly"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:259
+#: includes/settings/class-alg-slugs-manager-settings.php:279
+msgid "Save"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:265
+#, php-format
+msgid "Next old slugs clean up is scheduled on %s. Current time is %s."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:275
+msgid "No"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:276
+msgid "Yes"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:285
+msgid "Scheduled Clean Ups"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:286
+#, php-format
+msgid "Set old slugs to be cleared periodically (%s)."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:291
+msgid "Clean Up on Save Post"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:292
+msgid "Set old slugs to be cleared automatically, when post is saved."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:312
+#: includes/settings/class-alg-slugs-manager-settings.php:337
+msgid "Regenerate Slugs"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:314
+#, php-format
+msgid "You will need %s plugin to enable slugs regeneration."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:329
+msgid "There is no undo for this action."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:330
+msgid "Regenerate"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:338
+msgid "Regenerate slug from <strong>title</strong> for all posts."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:356
+msgid "Extra Tools"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:359
+msgid "Flush Rewrite Rules"
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:360
+msgid "Remove rewrite rules and then recreate rewrite rules."
+msgstr ""
+
+#: includes/settings/class-alg-slugs-manager-settings.php:362
+msgid "Flush"
+msgstr ""
