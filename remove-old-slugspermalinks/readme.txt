@@ -1,9 +1,9 @@
 === Slugs Manager: Delete Old Permalinks from WordPress Database ===
-Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmukherjeeli
-Tags: slugs manager, old slugs, regenerate slugs, seo, delete slugs
+Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas
+Tags: slugs manager, old slugs, regenerate slugs
 Requires at least: 3.5.1
-Tested up to: 6.6
-Stable tag: 2.7.5
+Tested up to: 6.8
+Stable tag: 2.8.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,8 +15,7 @@ Scan & remove old or outdated slugs (permalinks) in Wordpress, keep your databas
 
 [Main Page](https://wpfactory.com/item/slugs-manager-wordpress-plugin/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Main Page") | [Support Forum](https://wpfactory.com/support/item/slugs-manager-wordpress-plugin/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Support Forum") | [Documentation & How to](https://wpfactory.com/docs/slugs-manager-wordpress-plugin/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Documentation & How to")
 
-
-Are you struggling with old, unnecessary slugs living in your WordPress site database? Over time, as your site grows and changes, old slugs can build up and slow things down. 
+Are you struggling with old, unnecessary slugs living in your WordPress site database? Over time, as your site grows and changes, old slugs can build up and slow things down.
 
 You also might have tried to create a post but WordPress decided to add "-2" to the slug, because the exact same slug is available in the database from an old, deleted post.
 
@@ -56,7 +55,6 @@ ___
 > “It freakin' worked!: Leave it to WordPress to have such a crappy website building model that even after you delete old pages, the slugs/URLs/permalinks would somehow still exist somewhere in the background, disallowing you from using it for new pages. Luckily, this plugin is simple, requires the click of pretty much 1 button, and SOLVED my god-d*mn problem. THANKS!” – ⭐⭐⭐⭐⭐ [chriswordpressorg](https://wordpress.org/support/topic/it-freakin-worked/)
 
 > “You may not know you need this!: If you’ve ever changed the permalink structure of your site – or just changed some of the permalink slugs on posts – you’ve got left-over junk in your WP trunk! This plugin found and eliminated 277 old permalinks from my site in about two seconds and with two clicks! Unless your WP site is brand-new, you probably need this plugin!” – ⭐⭐⭐⭐⭐ [markcorder](https://wordpress.org/support/topic/you-may-not-know-you-need-this/)
-
 
 ## 🏆 Do More: PRO Version##
 
@@ -123,8 +121,6 @@ WPFactory has a diverse range of plugins tailored to enhance your experience:
 **Post-Activation:**
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
-
-
 == Frequently Asked Questions ==
 
 = Do I need to keep the plugin enabled once I run its tools (e.g., removed old slugs)? =
@@ -133,9 +129,19 @@ No, you can disable the plugin.
 
 == Screenshots ==
 
-1. Tools > Slugs Manager > Old Slugs.
+1. WPFactory > Slugs Manager > Old Slugs.
 
 == Changelog ==
+
+= 2.8.0 - 27/06/2025 =
+* Dev - Security - Output escaped.
+* Dev - Security - Input sanitized.
+* Dev - Plugin settings moved to the "WPFactory" menu.
+* Dev - WPFactory "Recommendations" added.
+* Dev - WPFactory "Key Manager" added.
+* Dev - Code refactoring.
+* Dev - Coding standards improved.
+* Tested up to: 6.8.
 
 = 2.7.5 - 31/07/2024 =
 * Tested up to: 6.6.

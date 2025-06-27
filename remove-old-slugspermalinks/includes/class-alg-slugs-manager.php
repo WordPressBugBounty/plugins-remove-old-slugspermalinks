@@ -2,7 +2,7 @@
 /**
  * Slugs Manager - Main Class
  *
- * @version 2.7.0
+ * @version 2.8.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -36,7 +36,7 @@ final class Alg_Slugs_Manager {
 	protected static $_instance = null;
 
 	/**
-	 * Main Alg_Slugs_Manager Instance
+	 * Main Alg_Slugs_Manager Instance.
 	 *
 	 * Ensures only one instance of Alg_Slugs_Manager is loaded or can be loaded.
 	 *
@@ -56,21 +56,28 @@ final class Alg_Slugs_Manager {
 	/*
 	 * Alg_Slugs_Manager Constructor.
 	 *
-	 * @version 2.6.0
+	 * @version 2.8.0
 	 * @since   1.0.0
 	 *
 	 * @access  public
 	 *
+	 * @todo    (v2.8.0) Plugin Check
+	 * @todo    (v2.8.0) code formatting
 	 * @todo    (dev) move *all* to `is_admin()`?
 	 */
 	function __construct() {
+
+		// Load libs
+		if ( is_admin() ) {
+			require_once plugin_dir_path( ALG_SLUGS_MANAGER_FILE ) . 'vendor/autoload.php';
+		}
 
 		// Set up localisation
 		add_action( 'init', array( $this, 'localize' ) );
 
 		// Pro
 		if ( 'remove-old-slugs-pro.php' === basename( ALG_SLUGS_MANAGER_FILE ) ) {
-			require_once( 'pro/class-alg-slugs-manager-pro.php' );
+			require_once plugin_dir_path( __FILE__ ) . 'pro/class-alg-slugs-manager-pro.php';
 		}
 
 		// Include required files
@@ -93,40 +100,54 @@ final class Alg_Slugs_Manager {
 	 * @since   2.5.0
 	 */
 	function localize() {
-		load_plugin_textdomain( 'remove-old-slugspermalinks', false, dirname( plugin_basename( ALG_SLUGS_MANAGER_FILE ) ) . '/langs/' );
+		load_plugin_textdomain(
+			'remove-old-slugspermalinks',
+			false,
+			dirname( plugin_basename( ALG_SLUGS_MANAGER_FILE ) ) . '/langs/'
+		);
 	}
 
 	/**
 	 * includes.
 	 *
-	 * @version 2.6.0
+	 * @version 2.8.0
 	 * @since   2.4.0
 	 */
 	function includes() {
-		$this->core = require_once( 'class-alg-slugs-manager-core.php' );
+		$this->core = require_once plugin_dir_path( __FILE__ ) . 'class-alg-slugs-manager-core.php';
 	}
 
 	/**
 	 * admin.
 	 *
-	 * @version 2.6.0
+	 * @version 2.8.0
 	 * @since   2.4.0
 	 */
 	function admin() {
+
 		// Action links
-		add_filter( 'plugin_action_links_' . plugin_basename( ALG_SLUGS_MANAGER_FILE ), array( $this, 'action_links' ) );
+		add_filter(
+			'plugin_action_links_' . plugin_basename( ALG_SLUGS_MANAGER_FILE ),
+			array( $this, 'action_links' )
+		);
+
+		// "Recommendations" page
+		add_action( 'init', array( $this, 'add_cross_selling_library' ) );
+
 		// Settings
-		require_once( 'settings/class-alg-slugs-manager-settings.php' );
+		require_once plugin_dir_path( __FILE__ ) . 'settings/class-alg-slugs-manager-settings.php';
+
 		// Version update
 		if ( get_option( 'alg_slugs_manager_plugin_version', '' ) !== $this->version ) {
 			add_action( 'admin_init', array( $this, 'version_updated' ) );
 		}
+
 	}
 
 	/**
 	 * action_links.
 	 *
-	 * @version 2.7.0
+	 * @version 2.8.0
 	 * @since   2.0.0
 	 *
 	 * @param   mixed $links
@@ -134,12 +155,36 @@ final class Alg_Slugs_Manager {
 	 */
 	function action_links( $links ) {
 		$custom_links = array();
-		$custom_links[] = '<a href="' . admin_url( 'tools.php?page=alg-slugs-manager' ) . '">' . esc_html__( 'Settings', 'remove-old-slugspermalinks' ) . '</a>';
+
+		$custom_links[] = '<a href="' . admin_url( 'admin.php?page=alg-slugs-manager' ) . '">' .
+			esc_html__( 'Settings', 'remove-old-slugspermalinks' ) .
+		'</a>';
+
 		if ( 'remove-old-slugs.php' === basename( ALG_SLUGS_MANAGER_FILE ) ) {
 			$custom_links[] = '<a target="_blank" style="font-weight: bold; color: green;" href="https://wpfactory.com/item/slugs-manager-wordpress-plugin/">' .
-				esc_html__( 'Go Pro', 'remove-old-slugspermalinks' ) . '</a>';
+				esc_html__( 'Go Pro', 'remove-old-slugspermalinks' ) .
+			'</a>';
 		}
+
 		return array_merge( $custom_links, $links );
+	}
+
+	/**
+	 * add_cross_selling_library.
+	 *
+	 * @version 2.8.0
+	 * @since   2.8.0
+	 */
+	function add_cross_selling_library() {
+
+		if ( ! class_exists( '\WPFactory\WPFactory_Cross_Selling\WPFactory_Cross_Selling' ) ) {
+			return;
+		}
+
+		$cross_selling = new \WPFactory\WPFactory_Cross_Selling\WPFactory_Cross_Selling();
+		$cross_selling->setup( array( 'plugin_file_path' => ALG_SLUGS_MANAGER_FILE ) );
+		$cross_selling->init();
+
 	}
 
 	/**

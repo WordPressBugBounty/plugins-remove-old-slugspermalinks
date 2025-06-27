@@ -2,7 +2,7 @@
 /**
  * Slugs Manager - Settings Class
  *
- * @version 2.7.0
+ * @version 2.8.0
  * @since   2.4.0
  *
  * @author  Algoritmika Ltd
@@ -17,13 +17,13 @@ class Alg_Slugs_Manager_Settings {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.5.0
+	 * @version 2.8.0
 	 * @since   2.4.0
 	 *
-	 * @todo    (dev) core refactoring?
+	 * @todo    (dev) code refactoring?
 	 */
 	function __construct() {
-		add_action( 'admin_menu',   array( $this, 'add_plugin_options_page' ) );
+		add_action( 'admin_menu',   array( $this, 'add_plugin_options_page' ), 11 );
 		add_action( 'admin_init',   array( $this, 'save_settings' ) );
 		add_action( 'admin_footer', array( $this, 'add_select_all_script' ), PHP_INT_MAX );
 	}
@@ -55,7 +55,7 @@ class Alg_Slugs_Manager_Settings {
 	/**
 	 * save_settings.
 	 *
-	 * @version 2.7.0
+	 * @version 2.8.0
 	 * @since   2.4.0
 	 *
 	 * @todo    (fix) `alg_slugs_manager_save_settings_crons`: `cron_unschedule_the_event()`: when "current time" > "event time" the event is not unscheduled?
@@ -68,7 +68,10 @@ class Alg_Slugs_Manager_Settings {
 		) {
 			// Check user permissions
 			if ( ! current_user_can( 'manage_options' ) ) {
-				add_action( 'admin_notices', array( alg_slugs_manager()->core, 'admin_notice_invalid_user' ) );
+				add_action(
+					'admin_notices',
+					array( alg_slugs_manager()->core, 'admin_notice_invalid_user' )
+				);
 				return;
 			}
 		}
@@ -78,12 +81,21 @@ class Alg_Slugs_Manager_Settings {
 			// Check nonce
 			if (
 				! isset( $_REQUEST['alg_sm_on_save_post_nonce'] ) ||
-				! wp_verify_nonce( $_REQUEST['alg_sm_on_save_post_nonce'], 'alg-sm-on-save-post' )
+				! wp_verify_nonce(
+					sanitize_text_field( wp_unslash( $_REQUEST['alg_sm_on_save_post_nonce'] ) ),
+					'alg-sm-on-save-post'
+				)
 			) {
-				add_action( 'admin_notices', array( alg_slugs_manager()->core, 'admin_notice_invalid_nonce' ) );
+				add_action(
+					'admin_notices',
+					array( alg_slugs_manager()->core, 'admin_notice_invalid_nonce' )
+				);
 				return;
 			}
-			update_option( 'alg_remove_old_slugs_on_save_post_enabled', sanitize_text_field( $_POST['alg_remove_old_slugs_on_save_post_enabled'] ) );
+			update_option(
+				'alg_remove_old_slugs_on_save_post_enabled',
+				sanitize_text_field( wp_unslash( $_POST['alg_remove_old_slugs_on_save_post_enabled'] ) )
+			);
 		}
 
 		// Scheduled Clean Ups
@@ -91,12 +103,21 @@ class Alg_Slugs_Manager_Settings {
 			// Check nonce
 			if (
 				! isset( $_REQUEST['alg_sm_crons_nonce'] ) ||
-				! wp_verify_nonce( $_REQUEST['alg_sm_crons_nonce'], 'alg-sm-crons' )
+				! wp_verify_nonce(
+					sanitize_text_field( wp_unslash( $_REQUEST['alg_sm_crons_nonce'] ) ),
+					'alg-sm-crons'
+				)
 			) {
-				add_action( 'admin_notices', array( alg_slugs_manager()->core, 'admin_notice_invalid_nonce' ) );
+				add_action(
+					'admin_notices',
+					array( alg_slugs_manager()->core, 'admin_notice_invalid_nonce' )
+				);
 				return;
 			}
-			update_option( 'alg_remove_old_slugs_cron_interval', sanitize_text_field( $_POST['alg_remove_old_slugs_crons_interval'] ) );
+			update_option(
+				'alg_remove_old_slugs_cron_interval',
+				sanitize_text_field( wp_unslash( $_POST['alg_remove_old_slugs_crons_interval'] ) )
+			);
 			do_action( 'alg_slugs_manager_save_settings_crons' );
 		}
 
@@ -105,18 +126,26 @@ class Alg_Slugs_Manager_Settings {
 	/*
 	 * add_plugin_options_page.
 	 *
-	 * @version 2.7.0
+	 * @version 2.8.0
 	 * @since   1.0.0
 	 */
 	function add_plugin_options_page() {
+
+		if ( ! class_exists( 'WPFactory\WPFactory_Admin_Menu\WPFactory_Admin_Menu' ) ) {
+			return;
+		}
+
+		$admin_menu = WPFactory\WPFactory_Admin_Menu\WPFactory_Admin_Menu::get_instance();
+
 		add_submenu_page(
-			'tools.php',
+			$admin_menu->get_menu_slug(),
 			esc_html__( 'Slugs Manager', 'remove-old-slugspermalinks' ),
 			esc_html__( 'Slugs Manager', 'remove-old-slugspermalinks' ),
 			'manage_options',
 			'alg-slugs-manager',
 			array( $this, 'create_admin_page' )
 		);
+
 	}
 
 	/*
@@ -155,13 +184,21 @@ class Alg_Slugs_Manager_Settings {
 	/**
 	 * display_old_slugs_table.
 	 *
-	 * @version 2.7.0
+	 * @version 2.8.0
 	 * @since   2.4.0
 	 */
 	function display_old_slugs_table() {
 		$html  = '';
-		$html .= '<hr>' . '<h2>' . '<span class="dashicons dashicons-search" style="color:gray;"></span> ' . __( 'Old Slugs', 'remove-old-slugspermalinks' ) . '</h2>' .
-			'<p><em>' . __( 'This tool removes old slugs (permalinks) from database.', 'remove-old-slugspermalinks' ) . '</em></p>';
+		$html .= (
+			'<hr>' .
+			'<h2>' .
+				'<span class="dashicons dashicons-search" style="color:gray;"></span> ' .
+				__( 'Old Slugs', 'remove-old-slugspermalinks' ) .
+			'</h2>' .
+			'<p><em>' .
+				__( 'This tool removes old slugs (permalinks) from database.', 'remove-old-slugspermalinks' ) .
+			'</em></p>'
+		);
 		$old_slugs     = alg_slugs_manager()->core->get_old_slugs();
 		$num_old_slugs = count( $old_slugs );
 		if ( $num_old_slugs > 0 ) {
@@ -192,28 +229,41 @@ class Alg_Slugs_Manager_Settings {
 					$current_slug,
 				);
 			}
-			$buttons = '<p>' .
+			$buttons = (
+				'<p>' .
 					'<input class="button-primary" type="submit" name="alg_slugs_manager_remove_selected_old_slugs" onclick="return confirm(\'' .
 						__( 'Are you sure?', 'remove-old-slugspermalinks' ) . '\')" value="' . __( 'Remove selected old slugs', 'remove-old-slugspermalinks' ) . '"/>' . ' ' .
 					'<input class="button-primary" type="submit" name="alg_slugs_manager_remove_old_slugs" onclick="return confirm(\'' .
 						__( 'Are you sure?', 'remove-old-slugspermalinks' ) . '\')" value="' . __( 'Remove all old slugs', 'remove-old-slugspermalinks' ) . '"/>' . ' ' .
-					'<a class="button" href="' . admin_url( 'tools.php?page=alg-slugs-manager' ) . '">' .
-						__( 'Refresh list', 'remove-old-slugspermalinks' ) . '</a>' .
-				'</p>';
-			$html .= '<p>' . sprintf( __( '%s old slug(s) found.', 'remove-old-slugspermalinks' ), '<strong>' . $num_old_slugs . '</strong>' ) . '</p>' .
+					'<a class="button" href="' . admin_url( 'admin.php?page=alg-slugs-manager' ) . '">' .
+						__( 'Refresh list', 'remove-old-slugspermalinks' ) .
+					'</a>' .
+				'</p>'
+			);
+			$html .= (
+				'<p>' . sprintf(
+					/* Translators: %s: Number of slugs. */
+					__( '%s old slug(s) found.', 'remove-old-slugspermalinks' ),
+					'<strong>' . $num_old_slugs . '</strong>'
+				) . '</p>' .
 				'<form method="post" action="">' .
 					$buttons .
 					$this->get_table_html( $table_data, array( 'table_class' => 'widefat striped', 'table_heading_type' => 'none' ) ) .
 					$buttons .
 					'<input type="hidden" name="alg_sm_remove_old_slugs_nonce" value="' . esc_attr( wp_create_nonce( 'alg-sm-remove-old-slugs' ) ) . '">' .
-				'</form>';
+				'</form>'
+			);
 		} else {
 			// No old slugs found
-			$html .= '<p><strong>' . __( 'No old slugs found in database.', 'remove-old-slugspermalinks' ) . '</strong></p>' .
+			$html .= (
+				'<p><strong>' .
+					__( 'No old slugs found in database.', 'remove-old-slugspermalinks' ) .
+				'</strong></p>' .
 				'<p>' .
-					'<a class="button" href="' . admin_url( 'tools.php?page=alg-slugs-manager' ) . '">' .
+					'<a class="button" href="' . admin_url( 'admin.php?page=alg-slugs-manager' ) . '">' .
 						__( 'Refresh list', 'remove-old-slugspermalinks' ) . '</a>' .
-				'</p>';
+				'</p>'
+			);
 		}
 		return $html;
 	}
@@ -221,21 +271,38 @@ class Alg_Slugs_Manager_Settings {
 	/*
 	 * display_automatic_clean_ups_options.
 	 *
-	 * @version 2.7.0
+	 * @version 2.8.0
 	 * @since   2.4.0
 	 */
 	function display_automatic_clean_ups_options() {
 		$html  = '';
 		// Header
 		$html .= '<h4>' . __( 'Automatic Clean Ups', 'remove-old-slugspermalinks' ) . '</h4>';
-		$html .= apply_filters( 'alg_slugs_manager_core_settings', '<h4 style="padding: 10px; background-color: white;">' . sprintf(
-			__( 'You will need %s plugin to enable automatic old slugs clean ups.', 'remove-old-slugspermalinks' ),
-				'<a href="https://wpfactory.com/item/slugs-manager-wordpress-plugin/" target="_blank">' .
-					__( 'Slugs Manager Pro', 'remove-old-slugspermalinks' ) . '</a>' ) . '</h4>' );
-		if ( isset( $_GET['alg_debug'] ) && defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) {
+		$html .= apply_filters(
+			'alg_slugs_manager_core_settings',
+			'<h4 style="padding: 10px; background-color: white;">' .
+				sprintf(
+					/* Translators: %s: Plugin link. */
+					__( 'You will need %s plugin to enable automatic old slugs clean ups.', 'remove-old-slugspermalinks' ),
+					'<a href="https://wpfactory.com/item/slugs-manager-wordpress-plugin/" target="_blank">' .
+						__( 'Slugs Manager Pro', 'remove-old-slugspermalinks' ) .
+					'</a>'
+				) .
+			'</h4>'
+		);
+		if (
+			isset( $_GET['alg_debug'] ) && // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			defined( 'DISABLE_WP_CRON' ) &&
+			DISABLE_WP_CRON
+		) {
 			$html .= '<h4 style="padding: 20px; background-color: #dddddd;">' .
-				sprintf( __( '%s is set to %s in your %s file - "Scheduled Clean Ups" won\'t work.', 'remove-old-slugspermalinks' ),
-					'<code>DISABLE_WP_CRON</code>', '<code>true</code>', '<code>wp-config.php</code>' ) .
+				sprintf(
+					/* Translators: %1$s: Constant name, %2$s: Constant value, %3$s: File name. */
+					__( '%1$s is set to %2$s in your %3$s file - "Scheduled Clean Ups" won\'t work.', 'remove-old-slugspermalinks' ),
+					'<code>DISABLE_WP_CRON</code>',
+					'<code>true</code>',
+					'<code>wp-config.php</code>'
+				) .
 			'</h4>';
 		}
 		// Scheduled clean ups
@@ -262,9 +329,18 @@ class Alg_Slugs_Manager_Settings {
 		$form_crons .= '</form>';
 		$cron_info = '';
 		if ( wp_next_scheduled( 'alg_remove_old_slugs_cron' ) ) {
-			$cron_info .= '<br><em>' . sprintf( __( 'Next old slugs clean up is scheduled on %s. Current time is %s.', 'remove-old-slugspermalinks' ),
-				'<code>' . date_i18n( 'Y-m-d H:i:s', wp_next_scheduled( 'alg_remove_old_slugs_cron' ) ) . '</code>',
-				'<code>' . date_i18n( 'Y-m-d H:i:s', time() ) . '</code>' ) . '</em>';
+			$cron_info .= '<br><em>' .
+				sprintf(
+					/* Translators: %1$s: Date and time, %2$s: Date and time. */
+					__( 'Next old slugs clean up is scheduled on %1$s. Current time is %2$s.', 'remove-old-slugspermalinks' ),
+					'<code>' .
+						date_i18n( 'Y-m-d H:i:s', wp_next_scheduled( 'alg_remove_old_slugs_cron' ) ) .
+					'</code>',
+					'<code>' .
+						date_i18n( 'Y-m-d H:i:s', time() ) .
+					'</code>'
+				) .
+			'</em>';
 		}
 		// Clean up on save post
 		$form_on_save_post  = '';
@@ -283,8 +359,13 @@ class Alg_Slugs_Manager_Settings {
 		$table_data = array(
 			array(
 				'<strong>' . __( 'Scheduled Clean Ups', 'remove-old-slugspermalinks' ) . '</strong>',
-				'<em>' . sprintf( __( 'Set old slugs to be cleared periodically (%s).', 'remove-old-slugspermalinks' ), implode( ', ', $intervals ) ) . '</em>' .
-					$cron_info,
+				'<em>' .
+					sprintf(
+						/* Translators: %s: Interval list. */
+						__( 'Set old slugs to be cleared periodically (%s).', 'remove-old-slugspermalinks' ),
+						implode( ', ', $intervals )
+					) .
+				'</em>' . $cron_info,
 				$form_crons,
 			),
 			array(
@@ -310,10 +391,18 @@ class Alg_Slugs_Manager_Settings {
 		$html  = '';
 		// Header
 		$html .= '<hr>' . '<h2>' . '<span class="dashicons dashicons-image-rotate" style="color:gray;"></span> ' . __( 'Regenerate Slugs', 'remove-old-slugspermalinks' ) . '</h2>' .
-			apply_filters( 'alg_slugs_manager_core_settings', '<h4 style="padding: 10px; background-color: white;">' . sprintf(
-			__( 'You will need %s plugin to enable slugs regeneration.', 'remove-old-slugspermalinks' ),
-				'<a href="https://wpfactory.com/item/slugs-manager-wordpress-plugin/" target="_blank">' .
-					__( 'Slugs Manager Pro', 'remove-old-slugspermalinks' ) . '</a>' ) . '</h4>' );
+			apply_filters(
+				'alg_slugs_manager_core_settings',
+				'<h4 style="padding: 10px; background-color: white;">' .
+					sprintf(
+						/* Translators: %s: Plugin link. */
+						__( 'You will need %s plugin to enable slugs regeneration.', 'remove-old-slugspermalinks' ),
+						'<a href="https://wpfactory.com/item/slugs-manager-wordpress-plugin/" target="_blank">' .
+							__( 'Slugs Manager Pro', 'remove-old-slugspermalinks' ) .
+						'</a>'
+					) .
+				'</h4>'
+			);
 		// Post types
 		$post_types_value   = get_option( 'alg_sm_regenerate_slugs_post_types', array( 'post' ) );
 		$post_types_options = '';
