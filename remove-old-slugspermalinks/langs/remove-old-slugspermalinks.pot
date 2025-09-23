@@ -2,40 +2,40 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Slugs Manager: Delete Old Permalinks from WordPress Database 2.8.0\n"
+"Project-Id-Version: remove-old-slugspermalinks 2.8.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/remove-old-slugspermalinks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-27T18:28:13+00:00\n"
+"POT-Creation-Date: 2025-09-23T15:17:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: remove-old-slugspermalinks\n"
 
 #. Plugin Name of the plugin
-#: remove-old-slugs.php
-msgid "Slugs Manager: Delete Old Permalinks from WordPress Database"
+#: remove-old-slugs-pro.php
+msgid "Slugs Manager: Delete Old Permalinks from WordPress Database Pro"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: remove-old-slugs.php
+#: remove-old-slugs-pro.php
 msgid "https://wpfactory.com/item/slugs-manager-wordpress-plugin/"
 msgstr ""
 
 #. Description of the plugin
-#: remove-old-slugs.php
+#: remove-old-slugs-pro.php
 msgid "Plugin helps you manage slugs (permalinks) in WordPress, for example, remove old slugs from database."
 msgstr ""
 
 #. Author of the plugin
-#: remove-old-slugs.php
+#: remove-old-slugs-pro.php
 msgid "WPFactory"
 msgstr ""
 
 #. Author URI of the plugin
-#: remove-old-slugs.php
+#: remove-old-slugs-pro.php
 msgid "https://wpfactory.com"
 msgstr ""
 
@@ -53,6 +53,7 @@ msgstr ""
 
 #. Translators: %s: Number of slugs.
 #: includes/class-alg-slugs-manager-core.php:209
+#, php-format
 msgid "Removing old slugs from database finished! %s old slug(s) deleted."
 msgstr ""
 
@@ -78,6 +79,7 @@ msgstr ""
 
 #. Translators: %s: Number of slugs.
 #: includes/pro/class-alg-slugs-manager-pro.php:149
+#, php-format
 msgid "%s slugs regenerated."
 msgstr ""
 
@@ -136,6 +138,7 @@ msgstr ""
 
 #. Translators: %s: Number of slugs.
 #: includes/settings/class-alg-slugs-manager-settings.php:246
+#, php-format
 msgid "%s old slug(s) found."
 msgstr ""
 
@@ -149,6 +152,7 @@ msgstr ""
 
 #. Translators: %s: Plugin link.
 #: includes/settings/class-alg-slugs-manager-settings.php:286
+#, php-format
 msgid "You will need %s plugin to enable automatic old slugs clean ups."
 msgstr ""
 
@@ -159,6 +163,7 @@ msgstr ""
 
 #. Translators: %1$s: Constant name, %2$s: Constant value, %3$s: File name.
 #: includes/settings/class-alg-slugs-manager-settings.php:301
+#, php-format
 msgid "%1$s is set to %2$s in your %3$s file - \"Scheduled Clean Ups\" won't work."
 msgstr ""
 
@@ -193,6 +198,7 @@ msgstr ""
 
 #. Translators: %1$s: Date and time, %2$s: Date and time.
 #: includes/settings/class-alg-slugs-manager-settings.php:335
+#, php-format
 msgid "Next old slugs clean up is scheduled on %1$s. Current time is %2$s."
 msgstr ""
 
@@ -210,6 +216,7 @@ msgstr ""
 
 #. Translators: %s: Interval list.
 #: includes/settings/class-alg-slugs-manager-settings.php:365
+#, php-format
 msgid "Set old slugs to be cleared periodically (%s)."
 msgstr ""
 
@@ -228,6 +235,7 @@ msgstr ""
 
 #. Translators: %s: Plugin link.
 #: includes/settings/class-alg-slugs-manager-settings.php:399
+#, php-format
 msgid "You will need %s plugin to enable slugs regeneration."
 msgstr ""
 
