@@ -1,9 +1,10 @@
 === Slugs Manager: Delete Old Permalinks from WordPress Database ===
 Contributors: wpcodefactory, anbinder, karzin, omardabbas
 Tags: slugs manager, old slugs, regenerate slugs
-Requires at least: 3.5.1
-Tested up to: 6.8
-Stable tag: 2.8.1
+Requires at least: 3.9
+Tested up to: 7.1
+Requires PHP: 7.4
+Stable tag: 2.9.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -89,7 +90,7 @@ ___
 
 WPFactory has a diverse range of plugins tailored to enhance your experience:
 
-* [**Rename Media Files: Improve Your WordPress SEO**](https://wpfactory.com/item/file-renaming-on-upload-wordpress-plugin/ "**Rename Media Files: Improve Your WordPress SEO**"): Enhance SEO and organize media effortlessly with Rename Media Files WordPress Plugin. Fix upload issues, santize & optimize filenames, and improve SEO seamlessly. (**[Free version](https://wordpress.org/plugins/file-renaming-on-upload/ "Free version")**)
+* [**Rename Media Files: Improve Your WordPress SEO**](https://wpfactory.com/item/file-renaming-on-upload-wordpress-plugin/ "**Rename Media Files: Improve Your WordPress SEO**"): Enhance SEO and organize media effortlessly with Rename Media Files WordPress Plugin. Fix upload issues, sanitize & optimize filenames, and improve SEO seamlessly. (**[Free version](https://wordpress.org/plugins/file-renaming-on-upload/ "Free version")**)
 
 * [**Download Plugins and Themes from WordPress**](https://wpfactory.com/item/download-plugins-and-themes-from-dashboard-wordpress-plugin/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Download Plugins and Themes from WordPress**"): Download installed plugins and themes in ZIP files directly from your WordPress admin dashboard, download any or all plugins & themes without FTP or cPanel access (**[Free version](https://wordpress.org/plugins/download-plugins-dashboard/ "Free version")**)
 
@@ -132,6 +133,22 @@ No, you can disable the plugin.
 1. WPFactory > Slugs Manager > Old Slugs.
 
 == Changelog ==
+
+= 2.9.0 - 16/10/2026 =
+* Dev - Post IDs sanitized before deleting old slugs.
+* Dev - Output escaped.
+* Dev - JavaScript moved to an external file.
+* Dev - Plugin icon added to the settings page.
+* Dev - Coding standards improved.
+* Dev - WPFactory Admin Menu - Library updated (to v1.1.4).
+* Dev - WPFactory Cross-Selling - Library updated (to v1.1.7).
+* Dev - WPFactory Key Manager - Library updated (to v1.1.1).
+* Tested up to: 7.1.
+* Requires at least: 3.9.
+* Requires PHP: 7.4.
+
+= 2.8.2 - 24/05/2026 =
+* Tested up to: 7.0.
 
 = 2.8.1 - 23/09/2025 =
 * readme.txt content update.
